@@ -11,6 +11,10 @@ import com.example.mylibrary.service.AutorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/autores")
@@ -28,6 +32,18 @@ public class AutorController {
         var result = service.salvar(entity);
         var uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(result.getId()).toUri();
         return ResponseEntity.created(uri).body(result);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Autor> getById(@PathVariable("id") String id) {
+        var autor = service.getById(id);
+        return autor != null ? ResponseEntity.ok(autor) : ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable("id") String id) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

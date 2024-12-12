@@ -1,5 +1,8 @@
-### Create a new author
-POST http://localhost:8080/autores
+@baseUrl=http://localhost:8080
+
+### Create a new Author
+# @name createAuthor
+POST {{baseUrl}}/autores
 Content-Type: application/json
 
 {
@@ -7,3 +10,17 @@ Content-Type: application/json
     "nacionalidade": "Brasileira",
     "dataNascimento": "1990-01-01"
 }
+
+@authorId = {{createAuthor.response.body.id}}
+
+### Get the response.id from the previous request
+# @name getAuthor
+GET {{baseUrl}}/autores/{{authorId}}
+Content-Type: application/json
+
+
+
+### Delete Author
+# @name deleteAuthor
+DELETE  {{baseUrl}}/autores/{{authorId}}
+Content-Type: application/json

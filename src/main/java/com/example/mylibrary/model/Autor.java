@@ -1,12 +1,22 @@
 package com.example.mylibrary.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,6 +27,8 @@ import lombok.Data;
 @Entity
 @Table(name = "autor", schema = "public") // modificar o nome da table
 @Data
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 public class Autor {
     @Id
     // @Column(name = "id")
@@ -35,4 +47,9 @@ public class Autor {
     @OneToMany(mappedBy = "autor", cascade = { CascadeType.ALL })
     // por padrao e mapeamento lazy one to many
     private List<Livro> livros;
+
+    @CreatedDate
+    private LocalDateTime insertedAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 }
