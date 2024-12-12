@@ -18,6 +18,21 @@ Content-Type: application/json
 GET {{baseUrl}}/autores/{{authorId}}
 Content-Type: application/json
 
+### update Author
+# @name updateAuthor
+PUT {{baseUrl}}/autores/{{authorId}}
+Content-Type: application/json
+
+{
+    "nome": "pasdfdsa a",
+    "nacionalidade": "asdfasdf",
+    "dataNascimento": "1990-01-01"
+}
+
+### Search authors
+# @name searchAuthor
+GET {{baseUrl}}/autores?nome=Abobora
+Content-Type: application/json
 
 
 ### Delete Author

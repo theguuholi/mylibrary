@@ -8,6 +8,9 @@ import com.example.mylibrary.controller.dto.AutorDTO;
 import com.example.mylibrary.model.Autor;
 import com.example.mylibrary.service.AutorService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/autores")
@@ -44,6 +49,30 @@ public class AutorController {
     public ResponseEntity<Void> deleteById(@PathVariable("id") String id) {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // @GetMapping
+    // public ResponseEntity<List<AutorDTO>> search(@RequestParam(value = "nome", required = false) String nome,
+    //         @RequestParam(value = "nacionalidade", required = false) String nacionalidade) {
+    //     var result = service.search(nome, nacionalidade).stream().map(autor -> new AutorDTO(autor.getId(),
+    //             autor.getNome(),
+    //             autor.getDataNascimento(),
+    //             autor.getNacionalidade())).collect(Collectors.toList());
+
+    //     return ResponseEntity.ok(result);
+
+    // }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Autor> update(@PathVariable("id") String id, @RequestBody AutorDTO autor) {
+        Autor result = service.getById(id);
+        if (result == null) {
+            return ResponseEntity.notFound().build();
+        }
+        result.setNome(autor.nome());
+        result.setDataNascimento(autor.dataNascimento());
+        result.setNacionalidade(autor.nacionalidade());
+        return ResponseEntity.ok(service.update(result));
     }
 
 }

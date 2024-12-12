@@ -1,5 +1,6 @@
 package com.example.mylibrary.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -27,5 +28,16 @@ public class AutorService {
     public void deleteById(String id) {
         repository.deleteById(UUID.fromString(id));
     }
+
+    public Autor update(Autor result) {
+        if(result.getId() == null) {
+            throw new IllegalArgumentException("Id não pode ser nulo");
+        }
+        return repository.save(result);
+    }
+
+    // public List<Autor> search(String nome, String nacionalidade) {
+    //     return repository.search(nome, nacionalidade);
+    // }
 
 }
