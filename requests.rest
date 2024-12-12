@@ -1,0 +1,9 @@
+### Create a new author
+POST http://localhost:8080/autores
+Content-Type: application/json
+
+{
+    "nome": "Abobora a",
+    "nacionalidade": "Brasileira",
+    "dataNascimento": "1990-01-01"
+}
