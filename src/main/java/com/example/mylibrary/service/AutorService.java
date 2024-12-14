@@ -7,17 +7,21 @@ import org.springframework.stereotype.Service;
 
 import com.example.mylibrary.model.Autor;
 import com.example.mylibrary.repository.AutorRepository;
+import com.example.mylibrary.validator.AutorValidator;
 
 @Service
 public class AutorService {
 
     private final AutorRepository repository;
+    private final AutorValidator validator;
 
-    public AutorService(AutorRepository repository) {
+    public AutorService(AutorRepository repository, AutorValidator validator) {
         this.repository = repository;
+        this.validator = validator;
     }
 
     public Autor salvar(Autor autor) {
+        validator.validate(autor);
         return repository.save(autor);
     }
 
@@ -30,6 +34,7 @@ public class AutorService {
     }
 
     public Autor update(Autor result) {
+        validator.validate(result);
         if(result.getId() == null) {
             throw new IllegalArgumentException("Id não pode ser nulo");
         }
