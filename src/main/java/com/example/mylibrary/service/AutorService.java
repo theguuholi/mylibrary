@@ -9,16 +9,19 @@ import com.example.mylibrary.model.Autor;
 import com.example.mylibrary.repository.AutorRepository;
 import com.example.mylibrary.validator.AutorValidator;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class AutorService {
 
     private final AutorRepository repository;
     private final AutorValidator validator;
 
-    public AutorService(AutorRepository repository, AutorValidator validator) {
-        this.repository = repository;
-        this.validator = validator;
-    }
+    // public AutorService(AutorRepository repository, AutorValidator validator) {
+    // this.repository = repository;
+    // this.validator = validator;
+    // }
 
     public Autor salvar(Autor autor) {
         validator.validate(autor);
