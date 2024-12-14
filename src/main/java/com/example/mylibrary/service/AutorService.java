@@ -29,20 +29,25 @@ public class AutorService {
         return repository.getReferenceById(UUID.fromString(id));
     }
 
-    public void deleteById(String id) {
-        repository.deleteById(UUID.fromString(id));
-    }
+    // public void deleteById(String id) {
+    // if(po)
+    // repository.deleteById(UUID.fromString(id));
+    // }
 
     public Autor update(Autor result) {
         validator.validate(result);
-        if(result.getId() == null) {
+        if (result.getId() == null) {
             throw new IllegalArgumentException("Id não pode ser nulo");
         }
         return repository.save(result);
     }
 
+    // public boolean possuiLivro(Autor autor) {
+    // return false;
+    // }
+
     // public List<Autor> search(String nome, String nacionalidade) {
-    //     return repository.search(nome, nacionalidade);
+    // return repository.search(nome, nacionalidade);
     // }
 
 }

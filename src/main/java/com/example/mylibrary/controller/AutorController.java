@@ -37,7 +37,6 @@ public class AutorController {
                     .toUri();
             return ResponseEntity.created(uri).body(result);
         } catch (DuplicatedRegistryException e) {
-            // TODO: handle exception
             var error = ErrorResponse.conflict(e.getMessage());
             return ResponseEntity.status(error.status()).body(error);
         }
@@ -72,15 +71,20 @@ public class AutorController {
     // }
 
     @PutMapping("{id}")
-    public ResponseEntity<Autor> update(@PathVariable("id") String id, @RequestBody AutorDTO autor) {
-        Autor result = service.getById(id);
-        if (result == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Object> update(@PathVariable("id") String id, @RequestBody AutorDTO autor) {
+        try {
+            Autor result = service.getById(id);
+            if (result == null) {
+                return ResponseEntity.notFound().build();
+            }
+            result.setNome(autor.nome());
+            result.setDataNascimento(autor.dataNascimento());
+            result.setNacionalidade(autor.nacionalidade());
+            return ResponseEntity.ok(service.update(result));
+        } catch (DuplicatedRegistryException e) {
+            var error = ErrorResponse.conflict(e.getMessage());
+            return ResponseEntity.status(error.status()).body(error);
         }
-        result.setNome(autor.nome());
-        result.setDataNascimento(autor.dataNascimento());
-        result.setNacionalidade(autor.nacionalidade());
-        return ResponseEntity.ok(service.update(result));
     }
 
 }

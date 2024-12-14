@@ -6,8 +6,8 @@ POST {{baseUrl}}/autores
 Content-Type: application/json
 
 {
-    "nome": "Abobora a",
-    "nacionalidade": "Brasileira",
+    "nome": "asdfdfff a",
+    "nacionalidade": "sss",
     "dataNascimento": "1990-01-01"
 }
 
@@ -24,7 +24,7 @@ PUT {{baseUrl}}/autores/{{authorId}}
 Content-Type: application/json
 
 {
-    "nome": "pasdfdsa a",
+    "nome": "ggggg a",
     "nacionalidade": "asdfasdf",
     "dataNascimento": "1990-01-01"
 }

@@ -27,7 +27,7 @@ public class AutorValidator {
         if (autor.getId() == null) {
             return result != null;
         }
-
-        return autor.getId().equals(result.getId()) && result != null;
+        System.out.println("ID: " + autor.getId());
+        return result != null && autor.getId().equals(result.getId());
     }
 }
