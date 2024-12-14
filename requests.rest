@@ -6,9 +6,9 @@ POST {{baseUrl}}/autores
 Content-Type: application/json
 
 {
-    "nome": "",
-    "nacionalidade": "",
-    "dataNascimento": "1990-01-01"
+    "nome": "1",
+    "nacionalidade": "1",
+    "dataNascimento": "2026-01-01"
 }
 
 @authorId = {{createAuthor.response.body.id}}
@@ -31,7 +31,7 @@ Content-Type: application/json
 
 ### Search authors
 # @name searchAuthor
-GET {{baseUrl}}/autores?nome=Abobora
+GET {{baseUrl}}/autores?nome=adsljfdoas;
 Content-Type: application/json
 
 

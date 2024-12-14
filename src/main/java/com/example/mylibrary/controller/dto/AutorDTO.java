@@ -7,11 +7,16 @@ import com.example.mylibrary.model.Autor;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 
 // notblank e notnull sao validacoes do bean validation
 //o notblank valida se a string nao eh nula e nao eh vazia
 // not null valida se nao e null
-public record AutorDTO(UUID id, @NotBlank(message = "Campo obrigagorio") String nome, @NotNull LocalDate dataNascimento, @NotBlank String nacionalidade) {
+public record AutorDTO(UUID id,
+        @NotBlank(message = "Campo obrigagorio") @Size(max = 100, min = 2) String nome,
+        @NotNull @Past LocalDate dataNascimento,
+        @NotBlank @Size(min = 2, max = 50) String nacionalidade) {
 
     public Autor mapearParaAutor() {
         var autor = new Autor();

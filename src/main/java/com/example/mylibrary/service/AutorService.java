@@ -3,6 +3,9 @@ package com.example.mylibrary.service;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 
 import com.example.mylibrary.model.Autor;
@@ -48,8 +51,17 @@ public class AutorService {
     // return false;
     // }
 
-    // public List<Autor> search(String nome, String nacionalidade) {
-    // return repository.search(nome, nacionalidade);
-    // }
+    public List<Autor> search(String nome, String nacionalidade) {
+        var autor = new Autor();
+        autor.setNome(nome);
+        autor.setNacionalidade(nacionalidade);
+
+        var matcher = ExampleMatcher.matching()
+                .withIgnoreNullValues()
+                .withIgnoreCase()
+                .withStringMatcher(StringMatcher.CONTAINING);
+        var exampleAutor = Example.of(autor, matcher);
+        return repository.findAll(exampleAutor);
+    }
 
 }

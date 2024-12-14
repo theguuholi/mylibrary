@@ -1,6 +1,7 @@
 package com.example.mylibrary.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -11,6 +12,9 @@ import com.example.mylibrary.model.Autor;
 import com.example.mylibrary.service.AutorService;
 
 import jakarta.validation.Valid;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,23 +61,23 @@ public class AutorController {
         return ResponseEntity.noContent().build();
     }
 
-    // @GetMapping
-    // public ResponseEntity<List<AutorDTO>> search(@RequestParam(value = "nome",
-    // required = false) String nome,
-    // @RequestParam(value = "nacionalidade", required = false) String
-    // nacionalidade) {
-    // var result = service.search(nome, nacionalidade).stream().map(autor -> new
-    // AutorDTO(autor.getId(),
-    // autor.getNome(),
-    // autor.getDataNascimento(),
-    // autor.getNacionalidade())).collect(Collectors.toList());
+    @GetMapping
+    public ResponseEntity<List<AutorDTO>> search(@RequestParam(value = "nome",
+    required = false) String nome,
+    @RequestParam(value = "nacionalidade", required = false) String
+    nacionalidade) {
+    var result = service.search(nome, nacionalidade).stream().map(autor -> new
+    AutorDTO(autor.getId(),
+    autor.getNome(),
+    autor.getDataNascimento(),
+    autor.getNacionalidade())).collect(Collectors.toList());
 
-    // return ResponseEntity.ok(result);
+    return ResponseEntity.ok(result);
 
-    // }
+    }
 
     @PutMapping("{id}")
-    public ResponseEntity<Object> update(@PathVariable("id") String id, @RequestBody AutorDTO autor) {
+    public ResponseEntity<Object> update(@PathVariable("id") String id, @RequestBody @Valid AutorDTO autor) {
         try {
             Autor result = service.getById(id);
             if (result == null) {
