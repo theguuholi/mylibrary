@@ -32,10 +32,9 @@ public class AutorService {
         return repository.getReferenceById(UUID.fromString(id));
     }
 
-    // public void deleteById(String id) {
-    // if(po)
-    // repository.deleteById(UUID.fromString(id));
-    // }
+    public void deleteById(String id) {
+        repository.deleteById(UUID.fromString(id));
+    }
 
     public Autor update(Autor result) {
         validator.validate(result);

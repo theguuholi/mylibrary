@@ -6,8 +6,8 @@ POST {{baseUrl}}/autores
 Content-Type: application/json
 
 {
-    "nome": "asdfdfff a",
-    "nacionalidade": "sss",
+    "nome": "",
+    "nacionalidade": "",
     "dataNascimento": "1990-01-01"
 }
 

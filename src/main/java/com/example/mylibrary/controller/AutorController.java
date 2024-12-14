@@ -10,6 +10,8 @@ import com.example.mylibrary.exceptions.DuplicatedRegistryException;
 import com.example.mylibrary.model.Autor;
 import com.example.mylibrary.service.AutorService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +31,7 @@ public class AutorController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> salvar(@RequestBody AutorDTO autor) {
+    public ResponseEntity<Object> salvar(@RequestBody @Valid AutorDTO autor) {
         try {
             var entity = autor.mapearParaAutor();
             var result = service.salvar(entity);
