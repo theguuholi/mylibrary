@@ -12,6 +12,7 @@ import com.example.mylibrary.model.Autor;
 import com.example.mylibrary.service.AutorService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,20 +25,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.example.mylibrary.controller.mappers.AutorMapper;
+
 @RestController
 @RequestMapping("/autores")
+@RequiredArgsConstructor
 public class AutorController {
 
     private final AutorService service;
+    private final AutorMapper mapper;
 
-    public AutorController(AutorService service) {
-        this.service = service;
-    }
 
     @PostMapping
-    public ResponseEntity<Object> salvar(@RequestBody @Valid AutorDTO autor) {
+    public ResponseEntity<Object> salvar(@RequestBody @Valid AutorDTO dto) {
         try {
-            var entity = autor.mapearParaAutor();
+            // var entity = autor.mapearParaAutor();
+            var entity = mapper.toEntity(dto);
             var result = service.salvar(entity);
             var uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(result.getId())
                     .toUri();

@@ -18,12 +18,12 @@ public record AutorDTO(UUID id,
         @NotNull @Past LocalDate dataNascimento,
         @NotBlank @Size(min = 2, max = 50) String nacionalidade) {
 
-    public Autor mapearParaAutor() {
-        var autor = new Autor();
-        autor.setNome(this.nome);
-        autor.setDataNascimento(this.dataNascimento);
-        autor.setNacionalidade(this.nacionalidade);
-        return autor;
-    }
+    // public Autor mapearParaAutor() {
+    //     var autor = new Autor();
+    //     autor.setNome(this.nome);
+    //     autor.setDataNascimento(this.dataNascimento);
+    //     autor.setNacionalidade(this.nacionalidade);
+    //     return autor;
+    // }
 
 }
