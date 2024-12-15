@@ -6,9 +6,9 @@ POST {{baseUrl}}/autores
 Content-Type: application/json
 
 {
-    "nome": "1",
-    "nacionalidade": "1",
-    "dataNascimento": "2026-01-01"
+    "nome": "12313",
+    "nacionalidade": "1232133",
+    "dataNascimento": "2020-01-01"
 }
 
 @authorId = {{createAuthor.response.body.id}}
@@ -39,3 +39,17 @@ Content-Type: application/json
 # @name deleteAuthor
 DELETE  {{baseUrl}}/autores/{{authorId}}
 Content-Type: application/json
+
+
+# Livros 
+
+### Create a new Book
+# @name createBook
+POST {{baseUrl}}/livros
+Content-Type: application/json
+
+{
+    "isbn": "978-0974192581",
+    "titulo": "1",
+    "autorId": "{{authorId}}"
+}

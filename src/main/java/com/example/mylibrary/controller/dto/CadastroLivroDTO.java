@@ -4,9 +4,17 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import org.hibernate.validator.constraints.ISBN;
+
 import com.example.mylibrary.model.GeneroLivro;
 
-public record CadastroLivroDTO(String titulo, String isbn, LocalDate dataPublicacao, GeneroLivro genero,
-        BigDecimal preco, UUID autorId) {
+import io.micrometer.common.lang.NonNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+
+public record CadastroLivroDTO(@NotBlank String titulo, @NotBlank @ISBN String isbn, @NonNull @Past LocalDate dataPublicacao,
+        GeneroLivro genero,
+        BigDecimal preco, @NotNull UUID autorId) {
 
 }
