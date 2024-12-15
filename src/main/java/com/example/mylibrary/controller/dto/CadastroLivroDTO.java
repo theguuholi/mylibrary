@@ -13,7 +13,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 
-public record CadastroLivroDTO(@NotBlank String titulo, @NotBlank @ISBN String isbn, @NonNull @Past LocalDate dataPublicacao,
+public record CadastroLivroDTO(@NotBlank String titulo, @NotBlank @ISBN String isbn,
+        @NonNull @Past LocalDate dataPublicacao,
         GeneroLivro genero,
         BigDecimal preco, @NotNull UUID autorId) {
 

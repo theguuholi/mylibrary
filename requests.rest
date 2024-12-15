@@ -50,6 +50,12 @@ Content-Type: application/json
 
 {
     "isbn": "978-0974192581",
+    "genero": "POESIA",
     "titulo": "1",
     "autorId": "{{authorId}}"
 }
+
+### Get the response.id from the previous request
+# @name getBook
+GET {{baseUrl}}/livros/668facf8-d17c-4cc5-9e80-84d7851e13a9
+Content-Type: application/json

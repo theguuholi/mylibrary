@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.mylibrary.controller.dto.ErroDTO;
 import com.example.mylibrary.controller.dto.ErrorResponse;
+import com.example.mylibrary.exceptions.DuplicatedRegistryException;
 
 @RestControllerAdvice
 // vai capturar todas as excecoes lancadas pelos controllers e retornar uma
@@ -23,4 +24,17 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toList());
         return new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(), "Erro de validacao", errors);
     }
+
+    @ExceptionHandler(DuplicatedRegistryException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleDuplicatedRegistryException(DuplicatedRegistryException e) {
+        return ErrorResponse.conflict(e.getMessage());
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleGenericErrors(RuntimeException e) {
+        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Unnexpected error!", List.of());
+    }
+
 }

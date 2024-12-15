@@ -3,11 +3,7 @@ package com.example.mylibrary.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.example.mylibrary.controller.dto.AutorDTO;
-import com.example.mylibrary.controller.dto.ErrorResponse;
-import com.example.mylibrary.exceptions.DuplicatedRegistryException;
 import com.example.mylibrary.model.Autor;
 import com.example.mylibrary.service.AutorService;
 
@@ -30,26 +26,18 @@ import com.example.mylibrary.controller.mappers.AutorMapper;
 @RestController
 @RequestMapping("/autores")
 @RequiredArgsConstructor
-public class AutorController {
+public class AutorController implements GenericController {
 
     private final AutorService service;
     private final AutorMapper mapper;
 
-
     @PostMapping
-    public ResponseEntity<Object> salvar(@RequestBody @Valid AutorDTO dto) {
-        try {
-            // var entity = autor.mapearParaAutor();
-            var entity = mapper.toEntity(dto);
-            var result = service.salvar(entity);
-            var uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(result.getId())
-                    .toUri();
-            return ResponseEntity.created(uri).body(result);
-        } catch (DuplicatedRegistryException e) {
-            var error = ErrorResponse.conflict(e.getMessage());
-            return ResponseEntity.status(error.status()).body(error);
-        }
-
+    public ResponseEntity<Autor> salvar(@RequestBody @Valid AutorDTO dto) {
+        // var entity = autor.mapearParaAutor();
+        var entity = mapper.toEntity(dto);
+        var result = service.salvar(entity);
+        var uri = generateHeaderLocation(result.getId());
+        return ResponseEntity.created(uri).body(result);
     }
 
     @GetMapping("{id}")
@@ -65,35 +53,27 @@ public class AutorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AutorDTO>> search(@RequestParam(value = "nome",
-    required = false) String nome,
-    @RequestParam(value = "nacionalidade", required = false) String
-    nacionalidade) {
-    var result = service.search(nome, nacionalidade).stream().map(autor -> new
-    AutorDTO(autor.getId(),
-    autor.getNome(),
-    autor.getDataNascimento(),
-    autor.getNacionalidade())).collect(Collectors.toList());
+    public ResponseEntity<List<AutorDTO>> search(@RequestParam(value = "nome", required = false) String nome,
+            @RequestParam(value = "nacionalidade", required = false) String nacionalidade) {
+        var result = service.search(nome, nacionalidade).stream().map(autor -> new AutorDTO(autor.getId(),
+                autor.getNome(),
+                autor.getDataNascimento(),
+                autor.getNacionalidade())).collect(Collectors.toList());
 
-    return ResponseEntity.ok(result);
+        return ResponseEntity.ok(result);
 
     }
 
     @PutMapping("{id}")
     public ResponseEntity<Object> update(@PathVariable("id") String id, @RequestBody @Valid AutorDTO autor) {
-        try {
-            Autor result = service.getById(id);
-            if (result == null) {
-                return ResponseEntity.notFound().build();
-            }
-            result.setNome(autor.nome());
-            result.setDataNascimento(autor.dataNascimento());
-            result.setNacionalidade(autor.nacionalidade());
-            return ResponseEntity.ok(service.update(result));
-        } catch (DuplicatedRegistryException e) {
-            var error = ErrorResponse.conflict(e.getMessage());
-            return ResponseEntity.status(error.status()).body(error);
+        Autor result = service.getById(id);
+        if (result == null) {
+            return ResponseEntity.notFound().build();
         }
+        result.setNome(autor.nome());
+        result.setDataNascimento(autor.dataNascimento());
+        result.setNacionalidade(autor.nacionalidade());
+        return ResponseEntity.ok(service.update(result));
     }
 
 }
