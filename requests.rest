@@ -59,3 +59,8 @@ Content-Type: application/json
 # @name getBook
 GET {{baseUrl}}/livros/668facf8-d17c-4cc5-9e80-84d7851e13a9
 Content-Type: application/json
+
+### DELETE BOOK
+# @name deleteBook
+DELETE {{baseUrl}}/livros/668facf8-d17c-4cc5-9e80-84d7851e13a9
+Content-Type: application/json
