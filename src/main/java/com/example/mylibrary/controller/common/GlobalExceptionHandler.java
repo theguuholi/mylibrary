@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.mylibrary.controller.dto.ErroDTO;
 import com.example.mylibrary.controller.dto.ErrorResponse;
+import com.example.mylibrary.exceptions.CampoInvalidoException;
 import com.example.mylibrary.exceptions.DuplicatedRegistryException;
 
 @RestControllerAdvice
@@ -29,6 +30,13 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleDuplicatedRegistryException(DuplicatedRegistryException e) {
         return ErrorResponse.conflict(e.getMessage());
+    }
+
+    @ExceptionHandler(CampoInvalidoException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ErrorResponse handleCampoInvalidoException(CampoInvalidoException e) {
+        return new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(), "Erro de validacao", List.of(
+                new ErroDTO(e.getField(), e.getMessage())));
     }
 
     @ExceptionHandler(RuntimeException.class)

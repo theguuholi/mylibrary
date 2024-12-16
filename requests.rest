@@ -51,6 +51,8 @@ Content-Type: application/json
 {
     "isbn": "978-0974192581",
     "genero": "POESIA",
+    "dataPublicacao": "2020-01-01",
+    "preco": null,
     "titulo": "1",
     "autorId": "{{authorId}}"
 }

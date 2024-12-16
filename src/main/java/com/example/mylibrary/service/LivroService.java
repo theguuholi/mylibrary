@@ -11,6 +11,7 @@ import com.example.mylibrary.model.GeneroLivro;
 import com.example.mylibrary.model.Livro;
 import com.example.mylibrary.repository.LivroRepository;
 import com.example.mylibrary.repository.specs.LivroSpecs;
+import com.example.mylibrary.validator.LivroValidator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,8 +19,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LivroService {
     private final LivroRepository repository;
+    private final LivroValidator validator;
 
     public Livro save(Livro livro) {
+        validator.validate(livro);
         return repository.save(livro);
     }
 
