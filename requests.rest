@@ -2,13 +2,26 @@
 
 @userPassword = "cc99e988-e004-40ee-8c15-5d9e10685d15"
 
+
+### Create a new user
+# @name createUser
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "login": "gus",
+    "password": "123123123",
+    "roles": ["ADMIN", "USER"]
+}
+
 ### Create a new Author
 # @name createAuthor
 POST {{baseUrl}}/autores
 Content-Type: application/json
+Authorization: Basic admin:123123123
 
 {
-    "nome": "22",
+    "nome": "222222",
     "nacionalidade": "1232133",
     "dataNascimento": "2020-01-01"
 }
@@ -18,6 +31,7 @@ Content-Type: application/json
 ### Get the response.id from the previous request
 # @name getAuthor
 GET {{baseUrl}}/autores/{{authorId}}
+Authorization: Basic user:123123123
 Content-Type: application/json
 
 ### update Author
@@ -74,6 +88,7 @@ Content-Type: application/json
 # @name search
 GET {{baseUrl}}/livros?isbn=978-0974192581&nome-autor&genero&ano-publicacao
 # Authorization: Basic user:cc99e988-e004-40ee-8c15-5d9e10685d15 
+Authorization: Basic user:123123123
 # above basic authentication
 Content-Type: application/json
 
