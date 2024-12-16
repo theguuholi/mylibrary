@@ -37,7 +37,7 @@ public class LivroService {
         // .and(LivroSpecs.generoEqual(genero));
 
         // select * from livro where 0 = 0;
-        Specification<Livro> spec = Specification.where((r, q, c) -> c.conjunction());
+        Specification<Livro> spec = Specification.where((_, _, c) -> c.conjunction());
 
         if (isbn != null) {
             spec = spec.and(LivroSpecs.isbnEqual(isbn));

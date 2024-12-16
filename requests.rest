@@ -6,7 +6,7 @@ POST {{baseUrl}}/autores
 Content-Type: application/json
 
 {
-    "nome": "12313",
+    "nome": "22",
     "nacionalidade": "1232133",
     "dataNascimento": "2020-01-01"
 }
@@ -57,10 +57,16 @@ Content-Type: application/json
 
 ### Get the response.id from the previous request
 # @name getBook
-GET {{baseUrl}}/livros/668facf8-d17c-4cc5-9e80-84d7851e13a9
+GET {{baseUrl}}/livros/ea43cccc-f141-4b25-af22-c050b3ee1e5a
 Content-Type: application/json
 
 ### DELETE BOOK
 # @name deleteBook
-DELETE {{baseUrl}}/livros/668facf8-d17c-4cc5-9e80-84d7851e13a9
+DELETE {{baseUrl}}/livros/ea43cccc-f141-4b25-af22-c050b3ee1e5a
+Content-Type: application/json
+
+
+### Search
+# @name search
+GET {{baseUrl}}/livros?isbn=978-0974192581&nome-autor&genero&ano-publicacao
 Content-Type: application/json

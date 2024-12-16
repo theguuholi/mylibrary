@@ -1,12 +1,15 @@
 package com.example.mylibrary.controller;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.mylibrary.controller.dto.CadastroLivroDTO;
 import com.example.mylibrary.controller.mappers.LivroMapper;
+import com.example.mylibrary.model.GeneroLivro;
 import com.example.mylibrary.model.Livro;
 import com.example.mylibrary.service.LivroService;
 
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.mylibrary.controller.dto.ResultadoPesquisaLivroDTO;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/livros")
@@ -57,6 +61,18 @@ public class LivroController implements GenericController {
         }).orElseGet(() -> {
             return ResponseEntity.notFound().build();
         });
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ResultadoPesquisaLivroDTO>> search(
+            @RequestParam(name = "isbn", required = false) String isbn,
+            @RequestParam(name = "titulo", required = false) String titulo,
+            @RequestParam(name = "genero", required = false) GeneroLivro genero,
+            @RequestParam(name = "ano-publicacao", required = false) Integer anoPublicacao) {
+
+        var result = service.search(isbn, titulo, genero, anoPublicacao)
+                .stream().map(mapper::toDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(result);
     }
 
 }
