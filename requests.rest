@@ -70,3 +70,12 @@ Content-Type: application/json
 # @name search
 GET {{baseUrl}}/livros?isbn=978-0974192581&nome-autor&genero&ano-publicacao
 Content-Type: application/json
+
+### update Author
+# @name updateBook
+PUT {{baseUrl}}/livros/ea43cccc-f141-4b25-af22-c050b3ee1e5a
+Content-Type: application/json
+
+{
+    "titulo": "pumpkin",
+}

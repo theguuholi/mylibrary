@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.mylibrary.controller.dto.ResultadoPesquisaLivroDTO;
@@ -73,6 +74,14 @@ public class LivroController implements GenericController {
         var result = service.search(isbn, titulo, genero, anoPublicacao)
                 .stream().map(mapper::toDTO).collect(Collectors.toList());
         return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Livro> update(@PathVariable("id") String id, @RequestBody @Valid CadastroLivroDTO dto) {
+        Livro livro = mapper.toEntity(dto);
+        livro.setId(UUID.fromString(id));
+        livro = service.save(livro);
+        return ResponseEntity.ok(livro);
     }
 
 }
