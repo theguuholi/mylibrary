@@ -1,5 +1,7 @@
 @baseUrl=http://localhost:8080
 
+@userPassword = "cc99e988-e004-40ee-8c15-5d9e10685d15"
+
 ### Create a new Author
 # @name createAuthor
 POST {{baseUrl}}/autores
@@ -71,6 +73,8 @@ Content-Type: application/json
 ### Search
 # @name search
 GET {{baseUrl}}/livros?isbn=978-0974192581&nome-autor&genero&ano-publicacao
+# Authorization: Basic user:cc99e988-e004-40ee-8c15-5d9e10685d15 
+# above basic authentication
 Content-Type: application/json
 
 ### update Author

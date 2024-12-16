@@ -1,6 +1,5 @@
 package com.example.mylibrary.service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,7 +14,6 @@ import com.example.mylibrary.repository.LivroRepository;
 import com.example.mylibrary.repository.specs.LivroSpecs;
 import com.example.mylibrary.validator.LivroValidator;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 import lombok.RequiredArgsConstructor;
 
 @Service
