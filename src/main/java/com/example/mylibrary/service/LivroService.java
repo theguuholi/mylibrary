@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import com.example.mylibrary.repository.LivroRepository;
 import com.example.mylibrary.repository.specs.LivroSpecs;
 import com.example.mylibrary.validator.LivroValidator;
 
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -34,7 +37,8 @@ public class LivroService {
         this.repository.delete(livro);
     }
 
-    public List<Livro> search(String isbn, String titulo, GeneroLivro genero, Integer anoPublicacao) {
+    public Page<Livro> search(String isbn, String titulo, GeneroLivro genero, Integer anoPublicacao,
+            Integer page, Integer size) {
         // Specification<Livro> spec = Specification.where(
         // LivroSpecs.isbnEqual(isbn)).and(LivroSpecs.tituloLike(titulo))
         // .and(LivroSpecs.generoEqual(genero));
@@ -54,6 +58,6 @@ public class LivroService {
             spec = spec.and(LivroSpecs.generoEqual(genero));
         }
 
-        return this.repository.findAll(spec);
+        return this.repository.findAll(spec, PageRequest.of(page, size));
     }
 }

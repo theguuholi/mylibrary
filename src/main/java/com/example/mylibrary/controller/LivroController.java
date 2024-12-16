@@ -16,6 +16,9 @@ import com.example.mylibrary.service.LivroService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +38,9 @@ public class LivroController implements GenericController {
     private final LivroService service;
     private final LivroMapper mapper;
 
+    private static final Logger logger = LoggerFactory.getLogger(LivroController.class);
+
+    
     @PostMapping
     public ResponseEntity<Livro> save(@RequestBody @Valid CadastroLivroDTO dto) {
         Livro livro = mapper.toEntity(dto);
@@ -65,14 +71,21 @@ public class LivroController implements GenericController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ResultadoPesquisaLivroDTO>> search(
-            @RequestParam(name = "isbn", required = false) String isbn,
-            @RequestParam(name = "titulo", required = false) String titulo,
-            @RequestParam(name = "genero", required = false) GeneroLivro genero,
-            @RequestParam(name = "ano-publicacao", required = false) Integer anoPublicacao) {
+    public ResponseEntity<Page<ResultadoPesquisaLivroDTO>> search(
+            @RequestParam(value = "isbn", required = false) String isbn,
+            @RequestParam(value = "titulo", required = false) String titulo,
+            @RequestParam(value = "genero", required = false) GeneroLivro genero,
+            @RequestParam(value = "ano-publicacao", required = false) Integer anoPublicacao,
+            @RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
+            @RequestParam(value = "size", defaultValue = "10", required = false) Integer size) {
+        logger.info(
+                "Search request received with parameters: isbn={}, titulo={}, genero={}, anoPublicacao={}, page={}, size={}",
+                isbn, titulo, genero, anoPublicacao, page, size);
 
-        var result = service.search(isbn, titulo, genero, anoPublicacao)
-                .stream().map(mapper::toDTO).collect(Collectors.toList());
+        // var result = service.search(isbn, titulo, genero, anoPublicacao, page, size)
+        // .stream().map(mapper::toDTO).collect(Collectors.toList());
+        var result = service.search(isbn, titulo, genero, anoPublicacao, page, size)
+                .map(mapper::toDTO);
         return ResponseEntity.ok(result);
     }
 
