@@ -64,5 +64,10 @@ public class Livro {
     private LocalDateTime insertedAt;
     @LastModifiedDate
     private LocalDateTime updatedAt;
+    // private UUID userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

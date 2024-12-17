@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.mylibrary.controller.dto.AutorDTO;
 import com.example.mylibrary.model.Autor;
+import com.example.mylibrary.security.SecurityService;
 import com.example.mylibrary.service.AutorService;
 
 import jakarta.validation.Valid;
@@ -15,6 +16,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,7 +39,10 @@ public class AutorController implements GenericController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<Autor> salvar(@RequestBody @Valid AutorDTO dto) {
+    // public ResponseEntity<Autor> salvar(@RequestBody @Valid AutorDTO dto, Authentication auth) {
         // var entity = autor.mapearParaAutor();
+        // UserDetails user = (UserDetails) auth.getPrincipal();
+        //pode pegar o principal e injetar como quiser
         var entity = mapper.toEntity(dto);
         var result = service.salvar(entity);
         var uri = generateHeaderLocation(result.getId());

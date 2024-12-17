@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.mylibrary.model.Autor;
 import com.example.mylibrary.repository.AutorRepository;
+import com.example.mylibrary.security.SecurityService;
 import com.example.mylibrary.validator.AutorValidator;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class AutorService {
 
     private final AutorRepository repository;
     private final AutorValidator validator;
+    private final SecurityService securityService;
 
     // public AutorService(AutorRepository repository, AutorValidator validator) {
     // this.repository = repository;
@@ -28,6 +30,9 @@ public class AutorService {
 
     public Autor salvar(Autor autor) {
         validator.validate(autor);
+        var user = securityService.getLoggedUser();
+        // autor.setUserId(user.getId());
+        autor.setUser(user);
         return repository.save(autor);
     }
 

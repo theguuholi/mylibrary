@@ -18,10 +18,10 @@ Content-Type: application/json
 # @name createAuthor
 POST {{baseUrl}}/autores
 Content-Type: application/json
-Authorization: Basic admin:123123123
+Authorization: Basic gus:123123123
 
 {
-    "nome": "222222",
+    "nome": "eeeee",
     "nacionalidade": "1232133",
     "dataNascimento": "2020-01-01"
 }
@@ -63,11 +63,12 @@ Content-Type: application/json
 # @name createBook
 POST {{baseUrl}}/livros
 Content-Type: application/json
+Authorization: Basic gus:123123123
 
 {
     "isbn": "978-0974192581",
     "genero": "POESIA",
-    "dataPublicacao": "2020-01-01",
+    "dataPublicacao": "2019-01-01",
     "preco": null,
     "titulo": "1",
     "autorId": "{{authorId}}"
