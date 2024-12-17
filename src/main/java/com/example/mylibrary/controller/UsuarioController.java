@@ -12,6 +12,7 @@ import com.example.mylibrary.controller.mappers.UserMapper;
 import com.example.mylibrary.model.User;
 import com.example.mylibrary.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -23,7 +24,7 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User save(@RequestBody UserDTO dto) {
+    public User save(@RequestBody @Valid UserDTO dto) {
         var entity = mapper.toEntity(dto);
         return service.save(entity);
     }

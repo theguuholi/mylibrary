@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.mylibrary.security.CustomAuthentication;
+
 @Controller
 public class LoginViewController {
     @GetMapping("/login")
@@ -15,6 +17,9 @@ public class LoginViewController {
     @GetMapping("/")
     @ResponseBody
     public String home(Authentication auth) {
+        if(auth instanceof CustomAuthentication customAuth) {
+           System.out.println(customAuth.getUser());
+        }
         return auth.getName();
     }
 }

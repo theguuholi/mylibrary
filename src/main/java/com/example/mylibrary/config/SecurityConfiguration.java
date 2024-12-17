@@ -17,6 +17,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.example.mylibrary.security.CustomUserDetailsService;
+import com.example.mylibrary.security.SocialLoginSuccessHandler;
 import com.example.mylibrary.service.UserService;
 
 @Configuration
@@ -24,7 +25,8 @@ import com.example.mylibrary.service.UserService;
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration {
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, SocialLoginSuccessHandler handler)
+            throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(Customizer.withDefaults())
@@ -40,7 +42,10 @@ public class SecurityConfiguration {
                     // a.requestMatchers("/livros/**").hasAnyRole("ADMIN", "USER");
                     a.anyRequest().authenticated(); // nao oclocar nenhum request antes dessa linha
                 })
-                .oauth2Login(Customizer.withDefaults())
+                // .oauth2Login(Customizer.withDefaults())
+                .oauth2Login(a -> {
+                    a.successHandler(handler);
+                })
                 .build();
 
     }
@@ -65,5 +70,5 @@ public class SecurityConfiguration {
     @Bean
     public GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults(""); // Remove the ROLE_ prefix
-    } 
+    }
 }

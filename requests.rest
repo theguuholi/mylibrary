@@ -10,6 +10,7 @@ Content-Type: application/json
 
 {
     "login": "aaa",
+    "email": "test@gmail.com",
     "password": "123123123",
     "roles": ["Pumpkin"]
 }
