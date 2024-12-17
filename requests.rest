@@ -89,7 +89,7 @@ Content-Type: application/json
 # @name search
 GET {{baseUrl}}/livros?isbn=978-0974192581&nome-autor&genero&ano-publicacao
 # Authorization: Basic user:cc99e988-e004-40ee-8c15-5d9e10685d15 
-Authorization: Basic aaa:123123123
+Authorization: Basic gus:123123123
 # above basic authentication
 Content-Type: application/json
 

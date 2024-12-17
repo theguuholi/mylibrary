@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,8 +27,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                // .formLogin(Customizer.withDefaults())
-                .formLogin(configurer -> configurer.loginPage("/login").permitAll())
+                .formLogin(Customizer.withDefaults())
+                // .formLogin(configurer -> configurer.loginPage("/login").permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(a -> {
                     a.requestMatchers("/login").permitAll();
@@ -39,6 +40,7 @@ public class SecurityConfiguration {
                     // a.requestMatchers("/livros/**").hasAnyRole("ADMIN", "USER");
                     a.anyRequest().authenticated(); // nao oclocar nenhum request antes dessa linha
                 })
+                .oauth2Login(Customizer.withDefaults())
                 .build();
 
     }
@@ -48,7 +50,7 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder(10);
     }
 
-    @Bean
+    // @Bean
     // public UserDetailsService userDetailsService(PasswordEncoder encoder) {
     public UserDetailsService userDetailsService(UserService service) {
         // var user1 =
@@ -59,4 +61,9 @@ public class SecurityConfiguration {
         // return new InMemoryUserDetailsManager(user1, user2);
         return new CustomUserDetailsService(service);
     }
+
+    @Bean
+    public GrantedAuthorityDefaults grantedAuthorityDefaults() {
+        return new GrantedAuthorityDefaults(""); // Remove the ROLE_ prefix
+    } 
 }
