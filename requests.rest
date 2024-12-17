@@ -102,3 +102,18 @@ Content-Type: application/json
 {
     "titulo": "pumpkin",
 }
+
+
+
+### OAUTH
+# @name createClient
+POST {{baseUrl}}/clients
+Content-Type: application/json
+Authorization: Basic gus:123123123
+
+{
+    "clientId": "my-client",
+    "clientSecret": "client-secret",
+    "redirectURI": "http://localhost:8080/authorized",
+    "scope": "ADMIN"
+}

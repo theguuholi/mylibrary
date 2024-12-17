@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.mylibrary.controller.dto.AutorDTO;
 import com.example.mylibrary.model.Autor;
-import com.example.mylibrary.security.SecurityService;
 import com.example.mylibrary.service.AutorService;
 
 import jakarta.validation.Valid;
@@ -16,9 +15,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
