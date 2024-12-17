@@ -4,17 +4,8 @@ spring:
             client:
                 registration:
                     google:
-                        clientId: 400926382153-5at128a9hqfi04jhdeqcfsb5jgnurg1d.apps.googleusercontent.com
-                        clientSecret: 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
-                #         scope:
-                #             - email
-                #             - profile
-                # provider:
-                #     google:
-                #         authorizationUri: https://accounts.google.com/o/oauth2/auth
-                #         tokenUri: https://accounts.google.com/o/oauth2/token
-                #         userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
-                #         userNameAttribute: sub
+                        clientId: ${GOOGLE_CLIENT_ID}
+                        clientSecret: ${GOOGLE_CLIENT_SECRET}
     application:
         name: libraryapi
     datasource:
