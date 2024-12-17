@@ -8,6 +8,10 @@ import com.example.mylibrary.model.Autor;
 import com.example.mylibrary.security.SecurityService;
 import com.example.mylibrary.service.AutorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +34,7 @@ import com.example.mylibrary.controller.mappers.AutorMapper;
 
 @RestController
 @RequestMapping("/autores")
+@Tag(name = "Autores")
 @RequiredArgsConstructor
 public class AutorController implements GenericController {
 
@@ -37,6 +42,9 @@ public class AutorController implements GenericController {
     private final AutorMapper mapper;
 
     @PostMapping
+    @Operation(summary = "Cadastrar um novo autor", description = "Cadastrar um novo autor")
+    @ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Autor cadastrado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro!!") })
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<Autor> salvar(@RequestBody @Valid AutorDTO dto) {
     // public ResponseEntity<Autor> salvar(@RequestBody @Valid AutorDTO dto, Authentication auth) {
