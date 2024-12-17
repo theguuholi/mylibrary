@@ -14,6 +14,8 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -52,6 +54,17 @@ public class AuthorizationServerConfiguration {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
+    }
+
+    // configura o prefixo do scope
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        var authoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        authoritiesConverter.setAuthorityPrefix("");
+
+        var converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter(authoritiesConverter);
+        return converter;
     }
 
 }

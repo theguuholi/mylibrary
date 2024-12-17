@@ -4,3 +4,7 @@ https://github.com/cursodsousa/curso-spring-boot-especialista/tree/1911e4b9aac34
 
 oauth2 spring security
 https://docs.spring.io/spring-authorization-server/reference/configuration-model.html
+
+
+JWT token
+https://jwt.io

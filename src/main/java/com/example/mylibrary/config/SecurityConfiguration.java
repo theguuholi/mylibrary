@@ -34,22 +34,16 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(Customizer.withDefaults())
-                // .formLogin(configurer -> configurer.loginPage("/login").permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(a -> {
                     a.requestMatchers("/login").permitAll();
                     a.requestMatchers(HttpMethod.POST, "/users").permitAll();
-                    // a.requestMatchers(HttpMethod.POST,
-                    // "/autores").hasAnyAuthority("CADASTRAR_AUTOR");
-                    // a.requestMatchers(HttpMethod.POST, "/autores").hasRole("ADMIN");
-                    // a.requestMatchers("/autores/**").hasRole("ADMIN");
-                    // a.requestMatchers("/livros/**").hasAnyRole("ADMIN", "USER");
                     a.anyRequest().authenticated(); // nao oclocar nenhum request antes dessa linha
                 })
-                // .oauth2Login(Customizer.withDefaults())
                 .oauth2Login(a -> {
                     a.successHandler(handler);
                 })
+                .oauth2ResourceServer(o -> o.jwt(Customizer.withDefaults()))
                 .build();
 
     }
