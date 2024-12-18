@@ -1,4 +1,16 @@
 spring:
+    logging:
+        file:
+            name: app.log
+        level: 
+            root: warn # trace, debug, info, warn, error (trace mostra tudo que acontece no sistema)
+            org: # pacote para debugar
+                springframework: 
+                    web: debug
+                    security: trace
+            com:
+                example:
+                    mylibrary: error
     security:
         oauth2:
             client:

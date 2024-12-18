@@ -49,6 +49,7 @@ Content-Type: application/json
 ### Search authors
 # @name searchAuthor
 GET {{baseUrl}}/autores?nome=adsljfdoas;
+Authorization: Basic gus:123123123
 Content-Type: application/json
 
 
