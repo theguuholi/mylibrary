@@ -5,14 +5,69 @@ management:
         web:
             exposure:
                 include: "*" #beans, logfile....
-                
+logging:
+    file:
+        name: app.log
+    level: 
+        root: error # trace, debug, info, warn, error (trace mostra tudo que acontece no sistema)
+        org: # pacote para debugar
+            springframework: 
+                web: error
+                security: error
+        com:
+            example:
+                mylibrary: error
 spring:
     output:
         ansi:
             enabled: always
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        clientId: ${GOOGLE_CLIENT_ID}
+                        clientSecret: ${GOOGLE_CLIENT_SECRET}
     application:
         name: libraryapi
-    profiles:
-        active: production
-    
+    # profiles:
+    #     active: production
+    datasource:
+        url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/libraryapi}
+        username: ${DATASOURCE_USERNAME:postgres}
+        password: ${DATASOURCE_PASSWORD:postgres}
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        properties:
+            hibernate:
+                format_sql: true
+                show_sql: true
+                ddl-auto: update
+        hibernate:
+            ddl-auto: update
 # none, create-drop para mapear 
+
+#production
+---
+spring:
+    config:
+        activate:
+            on-profile: production
+    jpa:
+        show-sql: false
+
+#test
+---
+spring:
+    config:
+        activate:
+            on-profile: test
+    datasource:
+        url: jdbc:h2:mem:testdb
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: password
+    jpa:
+        hibernate:
+            ddl-auto: update
+        database-platform: org.hibernate.dialect.H2Dialect
