@@ -1,0 +1,26 @@
+
+logging:
+    file:
+        name: app.log     
+spring:
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        clientId: ${GOOGLE_CLIENT_ID}
+                        clientSecret: ${GOOGLE_CLIENT_SECRET}
+    datasource:
+        url: jdbc:postgresql://localhost:5432/library
+        username: postgres
+        password: postgres
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        properties:
+            hibernate:
+                format_sql: true
+                show_sql: true
+                ddl-auto: update
+        hibernate:
+            ddl-auto: update
+# none, create-drop para mapear 
