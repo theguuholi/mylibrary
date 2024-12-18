@@ -1,4 +1,14 @@
+management:
+    server:
+        port: 9001
+    endpoints:
+        web:
+            exposure:
+                include: "*" #beans, logfile....
 spring:
+    output:
+        ansi:
+            enabled: always
     logging:
         file:
             name: app.log
@@ -10,7 +20,7 @@ spring:
                     security: trace
             com:
                 example:
-                    mylibrary: error
+                    mylibrary: trace
     security:
         oauth2:
             client:

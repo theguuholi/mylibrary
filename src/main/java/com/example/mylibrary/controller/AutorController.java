@@ -50,6 +50,7 @@ public class AutorController implements GenericController {
         // var entity = autor.mapearParaAutor();
         // UserDetails user = (UserDetails) auth.getPrincipal();
         // pode pegar o principal e injetar como quiser
+        log.info("Salvando autor: {}", dto.nome());
         var entity = mapper.toEntity(dto);
         var result = service.salvar(entity);
         var uri = generateHeaderLocation(result.getId());
@@ -65,6 +66,7 @@ public class AutorController implements GenericController {
     @DeleteMapping("{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public ResponseEntity<Void> deleteById(@PathVariable("id") String id) {
+        log.info("delete autor: {}", id);
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
