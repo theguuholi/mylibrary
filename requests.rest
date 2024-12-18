@@ -9,7 +9,7 @@ POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-    "login": "aaa",
+    "login": "dfdfdf",
     "email": "test@gmail.com",
     "password": "123123123",
     "roles": ["Pumpkin"]
@@ -22,7 +22,7 @@ Content-Type: application/json
 Authorization: Basic gus:123123123
 
 {
-    "nome": "eeeee",
+    "nome": "asdfs",
     "nacionalidade": "1232133",
     "dataNascimento": "2020-01-01"
 }
@@ -49,6 +49,7 @@ Content-Type: application/json
 ### Search authors
 # @name searchAuthor
 GET {{baseUrl}}/autores?nome=adsljfdoas;
+Authorization: Basic gus:123123123
 Content-Type: application/json
 
 

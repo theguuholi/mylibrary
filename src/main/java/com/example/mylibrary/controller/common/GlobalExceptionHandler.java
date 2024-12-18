@@ -15,13 +15,17 @@ import com.example.mylibrary.controller.dto.ErrorResponse;
 import com.example.mylibrary.exceptions.CampoInvalidoException;
 import com.example.mylibrary.exceptions.DuplicatedRegistryException;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestControllerAdvice
 // vai capturar todas as excecoes lancadas pelos controllers e retornar uma
 // resposta adequada REST
+@Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.error("erro de validacao");
         var errors = e.getFieldErrors().stream().map(fe -> new ErroDTO(fe.getField(), fe.getDefaultMessage()))
                 .collect(Collectors.toList());
         return new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(), "Erro de validacao", errors);
@@ -30,6 +34,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DuplicatedRegistryException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleDuplicatedRegistryException(DuplicatedRegistryException e) {
+        log.error("registro duplicado");
+
         return ErrorResponse.conflict(e.getMessage());
     }
 
@@ -49,6 +55,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleGenericErrors(RuntimeException e) {
+        log.error("Erro inesperado", e);
         return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Unnexpected error!", List.of());
     }
 
