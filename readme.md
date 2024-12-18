@@ -8,3 +8,8 @@ https://github.com/cursodsousa/curso-spring-boot-especialista/tree/f6eb9f098e190
 empacotar o projeto
 > ./mvnw clean package -DskipTests
 > java -jar ./target/file
+
+
+> criar container
+> docker build -t guuhworship/libraryapi .
+> docker run --name libraryapi-prod -e DATASOURCE_URL=jdbc:postgresql://pg:5432/library -e DATASOURCE_USERNAME=postgres -e DATASOURCE_PASSWORD=postgres --network pg -p 8080:8080 -p 9001:9001 guuhworship/libraryapi
