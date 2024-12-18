@@ -12,4 +12,5 @@ empacotar o projeto
 
 > criar container
 > docker build -t guuhworship/libraryapi .
-> docker run --name libraryapi-prod -e DATASOURCE_URL=jdbc:postgresql://pg:5432/library -e DATASOURCE_USERNAME=postgres -e DATASOURCE_PASSWORD=postgres --network pg -p 8080:8080 -p 9001:9001 guuhworship/libraryapi
+> docker run --name libraryapi-prod -e DATASOURCE_URL=jdbc:postgres://baasu.db.elephantsql.com/kbtyzjvi -e DATASOURCE_USERNAME=kbtyzjvi -e DATASOURCE_PASSWORD=a3aGFjeNjd1cILd34toqeAN0BGWB58X0 --network pg -p 8080:8080 -p 9001:9001 guuhworship/libraryapi
+
